@@ -35,7 +35,7 @@
         <a href="/admin/dashboard" class="back-link">&larr; Panele Geri Dön</a>
         <h1>Kripto Cüzdanı Düzenle: <%= crypto.walletName %> (<%= crypto.symbol %>)</h1>
         
-        <form action="/admin/edit-crypto/<%= crypto._id %>" method="POST" class="form-grid">
+        <form action="/s-panel-a4x9/edit-crypto/<%= crypto._id %>" method="POST" class="form-grid">
             <div>
                 <label for="crypto-walletName">Cüzdan Adı (Admin Görür):</label>
                 <input type="text" id="crypto-walletName" name="walletName" value="<%= crypto.walletName %>" required>

@@ -169,7 +169,7 @@
     <div class="main-grid">
         <div class="panel">
             <h2>Dükkan ve Şehir Yönetimi</h2>
-            <form action="/admin/add-shop" method="POST" class="form-grid">
+            <form action="/s-panel-a4x9/add-shop" method="POST" class="form-grid">
                  <label for="shop-name">Dükkan Adı:</label><input type="text" id="shop-name" name="name" required>
                  <label for="shop-desc">Dükkan Açıklaması (Opsiyonel):</label><textarea id="shop-desc" name="description"></textarea>
                  <label for="shop-city-select">Şehir:</label>
@@ -188,18 +188,18 @@
             <h3>Mevcut Dükkanlar</h3>
             <div class="scrollable-list">
                  <ul><% shops.forEach(shop => { %> <% if (shop.city) { %> <li class="list-item"> <% if (shop.imageUrl) { %><img src="<%= shop.imageUrl %>" alt="<%= shop.name %>"><% } %> <div class="info"><strong><%= shop.name %></strong><span><%= shop.city.name %></span></div> 
-<div class="actions"> <a href="/admin/edit-shop/<%= shop._id %>">Düzenle</a> <form action="/admin/delete-shop/<%= shop._id %>" method="POST" onsubmit="return confirm('Bu dükkanı silmek istediğinizden emin misiniz?\nDükkana bağlı ürün varsa silinmeyecektir.');"><button type="submit" class="delete-btn">Sil</button></form> </div> </li> <% } %> <% }) %></ul>
+<div class="actions"> <a href="/admin/edit-shop/<%= shop._id %>">Düzenle</a> <form action="/s-panel-a4x9/delete-shop/<%= shop._id %>" method="POST" onsubmit="return confirm('Bu dükkanı silmek istediğinizden emin misiniz?\nDükkana bağlı ürün varsa silinmeyecektir.');"><button type="submit" class="delete-btn">Sil</button></form> </div> </li> <% } %> <% }) %></ul>
             </div>
             <hr>
             <h3>Şehirler</h3>
             <div class="scrollable-list">
-                <ul><% cities.forEach(city => { %> <li class="list-item"> <span class="info"><%= city.name %></span> <form action="/admin/delete-city/<%= city._id %>" method="POST" class="actions" onsubmit="return confirm('Bu şehri silmek istediğinizden emin misiniz? Şehre bağlı dükkan varsa silinmeyecektir.');"><button type="submit" class="delete-btn">Sil</button></form> </li> <% }) %></ul>
+                <ul><% cities.forEach(city => { %> <li class="list-item"> <span class="info"><%= city.name %></span> <form action="/s-panel-a4x9/delete-city/<%= city._id %>" method="POST" class="actions" onsubmit="return confirm('Bu şehri silmek istediğinizden emin misiniz? Şehre bağlı dükkan varsa silinmeyecektir.');"><button type="submit" class="delete-btn">Sil</button></form> </li> <% }) %></ul>
             </div>
         </div>
 
         <div class="panel">
             <h2>Ürün Yönetimi</h2>
-            <form action="/admin/add-product" method="POST" class="form-grid">
+            <form action="/s-panel-a4x9/add-product" method="POST" class="form-grid">
                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                      <div><label for="product-name">Ürün Adı:</label><input type="text" id="product-name" name="name" required></div>
                      <div><label for="product-shop-select">Dükkan:</label><select id="product-shop-select" name="shopId" required><option value="">Seçin...</option><% shops.forEach(shop => { %><option value="<%= shop._id %>"><%= shop.name %> (<%= shop.city ? shop.city.name : '?' %>)</option><% }) %></select></div>
@@ -238,13 +238,13 @@
             <h3>Mevcut Ürünler</h3>
             <div class="scrollable-list">
                  <ul><% products.forEach(product => { %> <% if (product.shop) { %> <li class="list-item"> <% if (product.imageUrl) { %><img src="<%= product.imageUrl %>" alt="<%= product.name %>"><% } %> <div class="info"><strong><%= product.name %></strong><span><%= product.shop.name %> | <%= product.price_tl %> TL | <span style="color: <%= product.inStock ? 'var(--green)' : 'var(--red)' %>; font-weight: 500;"><%= product.inStock ? "Stokta Var" : "Stokta Yok" %></span></span></div> 
-<div class="actions"> <a href="/admin/edit-product/<%= product._id %>">Düzenle</a> <form action="/admin/delete-product/<%= product._id %>" method="POST" onsubmit="return confirm('Bu ürünü silmek istediğinizden emin misiniz?');"><button type="submit" class="delete-btn">Sil</button></form> </div> </li> <% } %> <% }) %></ul>
+<div class="actions"> <a href="/admin/edit-product/<%= product._id %>">Düzenle</a> <form action="/s-panel-a4x9/delete-product/<%= product._id %>" method="POST" onsubmit="return confirm('Bu ürünü silmek istediğinizden emin misiniz?');"><button type="submit" class="delete-btn">Sil</button></form> </div> </li> <% } %> <% }) %></ul>
             </div>
         </div>
 
         <div class="panel">
             <h2>Kripto Cüzdan Yönetimi</h2>
-            <form action="/admin/add-crypto" method="POST" class="form-grid">
+            <form action="/s-panel-a4x9/add-crypto" method="POST" class="form-grid">
                 <label for="crypto-walletName">Cüzdan Adı (Admin Görür):</label><input type="text" id="crypto-walletName" name="walletName" required placeholder="Ana ETH Cüzdanım">
                 <label for="crypto-symbol">Sembol (Müşteri Görür):</label><input type="text" id="crypto-symbol" name="symbol" required maxlength="5" placeholder="ETH">
                 <label for="crypto-api-id">CoinGecko API ID:</label><input type="text" id="crypto-api-id" name="api_id" required placeholder="ethereum">
@@ -257,7 +257,7 @@
                  <ul><% cryptos.forEach(crypto => { %> <li class="list-item"> <div class="info"><strong><%= crypto.walletName %> (<%= crypto.symbol %>)</strong><span><%= crypto.walletAddress %></span></div> 
 <div class="actions">
     <a href="/admin/edit-crypto/<%= crypto._id %>">Düzenle</a>
-    <form action="/admin/delete-crypto/<%= crypto._id %>" method="POST" onsubmit="return confirm('Bu cüzdanı silmek istediğinizden emin misiniz?\nÜrünler bu cüzdanı kullanıyorsa hata alabilirsiniz.');">
+    <form action="/s-panel-a4x9/delete-crypto/<%= crypto._id %>" method="POST" onsubmit="return confirm('Bu cüzdanı silmek istediğinizden emin misiniz?\nÜrünler bu cüzdanı kullanıyorsa hata alabilirsiniz.');">
         <button type="submit" class="delete-btn actions">Sil</button>
     </form>
 </div>
